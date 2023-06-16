@@ -91,7 +91,7 @@ public class AdapterAlumno extends BaseAdapter implements Filterable {
                 List<Alumno> filteredList = new ArrayList<>();
 
                 for (Alumno alumno : alumnos) {
-                    if (alumno.getNombre().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                    if (alumno.getNombre().toLowerCase().contains(constraint.toString().toLowerCase()) || alumno.getDes().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         filteredList.add(alumno);
                     }
                 }
