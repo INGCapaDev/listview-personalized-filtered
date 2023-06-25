@@ -1,11 +1,13 @@
 package com.example.listviewperso;
 
-public class Alumno {
+import java.io.Serializable;
+
+public class Alumno implements Serializable {
     public int id;
     public int imagen;
     public String nombre;
     public String des;
-
+    public String carrera;
     public int flecha;
 
     public Alumno(int id, int imagen, String nombre, String des, int flecha) {
@@ -13,6 +15,7 @@ public class Alumno {
         this.imagen = imagen;
         this.nombre = nombre;
         this.des = des;
+        this.carrera = carrera;
         this.flecha = flecha;
     }
 
