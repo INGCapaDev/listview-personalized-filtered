@@ -7,15 +7,18 @@ public class Alumno implements Serializable {
     public int imagen;
     public String nombre;
     public String des;
+
+
+
     public String carrera;
     public int flecha;
 
+    public Alumno(){}
     public Alumno(int id, int imagen, String nombre, String des, int flecha) {
         this.id = id;
         this.imagen = imagen;
         this.nombre = nombre;
         this.des = des;
-        this.carrera = carrera;
         this.flecha = flecha;
     }
 
@@ -50,5 +53,11 @@ public class Alumno implements Serializable {
     public void setDes(String des) {
         this.des = des;
     }
+    public String getCarrera() {
+        return carrera;
+    }
 
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
 }
