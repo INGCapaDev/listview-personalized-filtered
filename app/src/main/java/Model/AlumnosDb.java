@@ -40,10 +40,10 @@ public class AlumnosDb implements Persistencia, Proyeccion {
 
         ContentValues values = new ContentValues();
 
-        values.put(DefineTable.Alumnos.COLUMN_NAME_MATRICULA, alumno.getDes());
+        values.put(DefineTable.Alumnos.COLUMN_NAME_MATRICULA, alumno.getMatricula());
         values.put(DefineTable.Alumnos.COLUMN_NAME_NOMBRE, alumno.getNombre());
         values.put(DefineTable.Alumnos.COLUMN_NAME_CARRERA, alumno.getCarrera());
-        values.put(DefineTable.Alumnos.COLUMN_NAME_FOTO, alumno.getImagen());
+        values.put(DefineTable.Alumnos.COLUMN_NAME_FOTO, alumno.getImg());
          this.openDataBase();
          long num = db.insert(DefineTable.Alumnos.TABLE_NAME,null, values);
          this.closeDataBase();
@@ -55,10 +55,10 @@ public class AlumnosDb implements Persistencia, Proyeccion {
     public long updateAlumno(Alumno alumno) {
         ContentValues values = new ContentValues();
 
-        values.put(DefineTable.Alumnos.COLUMN_NAME_MATRICULA, alumno.getDes());
+        values.put(DefineTable.Alumnos.COLUMN_NAME_MATRICULA, alumno.getMatricula());
         values.put(DefineTable.Alumnos.COLUMN_NAME_NOMBRE, alumno.getNombre());
         values.put(DefineTable.Alumnos.COLUMN_NAME_CARRERA, alumno.getCarrera());
-        values.put(DefineTable.Alumnos.COLUMN_NAME_FOTO, alumno.getImagen());
+        values.put(DefineTable.Alumnos.COLUMN_NAME_FOTO, alumno.getImg());
         this.openDataBase();
         long num = db.update(
                 DefineTable.Alumnos.TABLE_NAME,
@@ -121,7 +121,7 @@ public class AlumnosDb implements Persistencia, Proyeccion {
         Alumno alumno = new Alumno();
 
         alumno.setId(cursor.getInt(0));
-        alumno.setDes(cursor.getString(1));
+        alumno.setMatricula(cursor.getString(1));
         alumno.setNombre(cursor.getString(2));
         alumno.setCarrera(cursor.getString(3));
 

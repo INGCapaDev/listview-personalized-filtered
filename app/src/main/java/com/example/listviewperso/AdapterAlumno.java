@@ -4,110 +4,73 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterAlumno extends BaseAdapter implements Filterable {
+public class AdapterAlumno extends RecyclerView.Adapter<AdapterAlumno.ViewHolder> implements View.OnClickListener {
 
-    Context context;
-    List<Alumno> lst;
-    List<Alumno> alumnos;
-    Filter CustomFilter;
+  protected ArrayList<Alumno> listaAlumnos;
+  private View.OnClickListener listener;
+  private Context context;
+  private LayoutInflater inflater;
 
-    public AdapterAlumno(Context context, List<Alumno> lst) {
-        this.context = context;
-        this.lst = lst;
+  public AdapterAlumno(ArrayList<Alumno> listaAlumnos, Context context){
+      this.listaAlumnos = listaAlumnos;
+      this.context = context;
+      this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+  }
+
+    @NonNull
+    @Override
+    public AdapterAlumno.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.alumno_items, null);
+        view.setOnClickListener(this);
+
+        return new ViewHolder(view);
     }
 
     @Override
-    public int getCount() {
-        return lst.size();
+    public void onBindViewHolder(@NonNull AdapterAlumno.ViewHolder holder, int position) {
+        Alumno alumno = listaAlumnos.get(position);
+        holder.txtMatricula.setText(alumno.getMatricula());
+        holder.txtNombre.setText(alumno.getNombre());
+        holder.idImagen.setImageResource(alumno.getImg());
     }
 
     @Override
-    public Object getItem(int position) {
-        return position;
+    public int getItemCount() {
+        return listaAlumnos.size();
     }
 
+    public void setOnClickListener(View.OnClickListener listener) {this.listener = listener;}
     @Override
-    public long getItemId(int position) {
-        return position;
+    public void onClick(View v) {
+        if(listener != null) listener.onClick(v);
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView ImageViewContacto;
-        TextView TextViewNombre;
-        TextView TextViewDes;
-        ImageView ImageViewFlecha;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private LayoutInflater inflater;
+        private TextView txtNombre;
+        private TextView txtMatricula;
+        private TextView txtCarrera;
+        private ImageView idImagen;
+        public ViewHolder(@NonNull View view) {
+            super(view);
+            txtNombre = (TextView) view.findViewById(R.id.txtAlumnoNombre);
+            txtMatricula = (TextView) view.findViewById(R.id.txtMatricula);
+            txtCarrera = (TextView) view.findViewById(R.id.txtCarrera);
+            idImagen = (ImageView) view.findViewById(R.id.foto);
 
-        Alumno c = lst.get(position);
-
-        if (convertView == null){
-          convertView =  LayoutInflater.from(context).inflate(R.layout.alumno_item, null);
-        }
-
-        ImageViewContacto = convertView.findViewById(R.id.imageViewContacto);
-        TextViewNombre = convertView.findViewById(R.id.textViewNombre);
-        TextViewDes = convertView.findViewById(R.id.textViewDes);
-        ImageViewFlecha = convertView.findViewById(R.id.imageViewFlecha);
-
-        ImageViewContacto.setImageResource(c.imagen);
-        TextViewNombre.setText(c.nombre);
-        TextViewDes.setText(c.des);
-        ImageViewFlecha.setImageResource(c.flecha);
-
-        return convertView;
-    }
-
-
-    @Override
-    public Filter getFilter() {
-        if (CustomFilter == null) {
-            CustomFilter = new CustomFilter();
-        }
-        return CustomFilter;
-    }
-    private class CustomFilter extends Filter {
-
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            FilterResults results = new FilterResults();
-
-            if (alumnos == null) {
-                alumnos = new ArrayList<>(lst);
-            }
-
-            if (constraint == null || constraint.length() == 0) {
-                results.count = alumnos.size();
-                results.values = alumnos;
-            } else {
-                List<Alumno> filteredList = new ArrayList<>();
-
-                for (Alumno alumno : alumnos) {
-                    if (alumno.getNombre().toLowerCase().contains(constraint.toString().toLowerCase()) || alumno.getDes().toLowerCase().contains(constraint.toString().toLowerCase())) {
-                        filteredList.add(alumno);
-                    }
-                }
-
-                results.count = filteredList.size();
-                results.values = filteredList;
-            }
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            lst = (List<Alumno>) results.values;
-
-            notifyDataSetChanged();
         }
     }
 }
