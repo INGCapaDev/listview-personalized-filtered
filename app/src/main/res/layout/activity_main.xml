@@ -16,5 +16,18 @@
             android:layout_height="match_parent"
             android:id="@+id/recId"/>
     </LinearLayout>
-
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:backgroundTint="#CCD1F3"
+            android:layout_margin="20dp"
+            android:elevation="3dp"
+            app:borderWidth="2dp"
+            android:src="@drawable/arrow"
+            android:id="@+id/agregarAlumno"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
