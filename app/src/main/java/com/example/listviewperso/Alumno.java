@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Alumno implements Serializable {
-    public int img;
+    public Integer img;
     public String nombre;
     public String matricula;
     public String carrera;
