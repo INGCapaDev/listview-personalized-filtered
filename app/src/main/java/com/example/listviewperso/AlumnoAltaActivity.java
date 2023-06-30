@@ -2,9 +2,7 @@ package com.example.listviewperso;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AlumnoAlta extends AppCompatActivity {
+public class AlumnoAltaActivity extends AppCompatActivity {
     private Button btnGuardar, btnRegresar;
     private Alumno alumno;
     private EditText txtNombre, txtMatricula, txtGrado;
