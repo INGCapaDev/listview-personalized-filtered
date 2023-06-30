@@ -19,16 +19,16 @@ import java.util.List;
 
 public class AdapterAlumno extends RecyclerView.Adapter<AdapterAlumno.ViewHolder> implements View.OnClickListener {
 
-  protected ArrayList<Alumno> listaAlumnos;
-  private View.OnClickListener listener;
-  private Context context;
-  private LayoutInflater inflater;
+    protected ArrayList<Alumno> listaAlumnos;
+    private View.OnClickListener listener;
+    private Context context;
+    private LayoutInflater inflater;
 
-  public AdapterAlumno(ArrayList<Alumno> listaAlumnos, Context context){
-      this.listaAlumnos = listaAlumnos;
-      this.context = context;
-      this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-  }
+    public AdapterAlumno(ArrayList<Alumno> listaAlumnos, Context context) {
+        this.listaAlumnos = listaAlumnos;
+        this.context = context;
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
     @NonNull
     @Override
@@ -52,10 +52,13 @@ public class AdapterAlumno extends RecyclerView.Adapter<AdapterAlumno.ViewHolder
         return listaAlumnos.size();
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {this.listener = listener;}
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onClick(View v) {
-        if(listener != null) listener.onClick(v);
+        if (listener != null) listener.onClick(v);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -64,6 +67,7 @@ public class AdapterAlumno extends RecyclerView.Adapter<AdapterAlumno.ViewHolder
         private TextView txtMatricula;
         private TextView txtCarrera;
         private ImageView idImagen;
+
         public ViewHolder(@NonNull View view) {
             super(view);
             txtNombre = (TextView) view.findViewById(R.id.txtAlumnoNombre);
