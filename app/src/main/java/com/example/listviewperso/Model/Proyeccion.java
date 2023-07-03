@@ -1,4 +1,4 @@
-package Model;
+package com.example.listviewperso.Model;
 
 import android.database.Cursor;
 

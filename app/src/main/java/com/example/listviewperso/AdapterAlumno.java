@@ -66,10 +66,13 @@ public class AdapterAlumno extends RecyclerView.Adapter<AdapterAlumno.ViewHolder
 
     @Override
     public Filter getFilter() {
+
         return new Filter() {
+
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
+
                 if(constraint == null || constraint.length() == 0){
                     filterResults.values = listaAlumnosFiltrados;
                     filterResults.count = listaAlumnosFiltrados.size();

@@ -1,4 +1,4 @@
-package Model;
+package com.example.listviewperso.Model;
 
 import com.example.listviewperso.Alumno;
 

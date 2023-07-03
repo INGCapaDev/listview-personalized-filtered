@@ -1,4 +1,4 @@
-package Model;
+package com.example.listviewperso.Model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -124,6 +124,7 @@ public class AlumnosDb implements Persistencia, Proyeccion {
         alumno.setMatricula(cursor.getString(1));
         alumno.setNombre(cursor.getString(2));
         alumno.setCarrera(cursor.getString(3));
+        alumno.setImg(cursor.getInt(4));
 
         return alumno;
     }

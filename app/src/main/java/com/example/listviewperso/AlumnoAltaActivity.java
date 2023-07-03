@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.listviewperso.Model.AlumnosDb;
+
 public class AlumnoAltaActivity extends AppCompatActivity {
     private Button btnGuardar, btnRegresar;
     private Alumno alumno;
@@ -20,6 +22,8 @@ public class AlumnoAltaActivity extends AppCompatActivity {
     private TextView lblImagen;
     private String carrera = "Ing. Tec. Informacion";
     private int posicion;
+
+    private AlumnosDb alumnosDb;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,14 +50,14 @@ public class AlumnoAltaActivity extends AppCompatActivity {
         btnGuardar.setOnClickListener(v -> {
             if (alumno == null) {
                 alumno = new Alumno();
-                alumno.setCarrera(carrera);
+                alumno.setCarrera(txtGrado.getText().toString());
                 alumno.setMatricula(txtMatricula.getText().toString());
                 alumno.setNombre(txtNombre.getText().toString());
                 alumno.setImg(R.drawable.avatar);
 
                 if (validar()) {
-                    Aplicacion.alumnos.add(alumno);
-                    Aplicacion.adaptador.notifyDataSetChanged();
+                   // Aplicacion.alumnos.add(alumno);
+                    alumnosDb.insertAlumno(alumno);
                     setResult(Activity.RESULT_OK);
                     finish();
                 } else {
@@ -70,7 +74,7 @@ public class AlumnoAltaActivity extends AppCompatActivity {
                 Aplicacion.alumnos.get(posicion).setMatricula(alumno.getMatricula());
                 Aplicacion.alumnos.get(posicion).setNombre(alumno.getNombre());
                 Aplicacion.alumnos.get(posicion).setCarrera(alumno.getCarrera());
-
+                alumnosDb.updateAlumno(alumno);
 
                 Toast.makeText(getApplicationContext(), "Se modifico con exito ", Toast.LENGTH_SHORT).show();
                 setResult(Activity.RESULT_OK);
