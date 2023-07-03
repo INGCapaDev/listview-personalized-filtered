@@ -53,6 +53,7 @@ public class AlumnoAltaActivity extends AppCompatActivity {
 
                 if (validar()) {
                     Aplicacion.alumnos.add(alumno);
+                    Aplicacion.adaptador.notifyDataSetChanged();
                     setResult(Activity.RESULT_OK);
                     finish();
                 } else {
@@ -70,9 +71,10 @@ public class AlumnoAltaActivity extends AppCompatActivity {
                 Aplicacion.alumnos.get(posicion).setNombre(alumno.getNombre());
                 Aplicacion.alumnos.get(posicion).setCarrera(alumno.getCarrera());
 
+
                 Toast.makeText(getApplicationContext(), "Se modifico con exito ", Toast.LENGTH_SHORT).show();
-
-
+                setResult(Activity.RESULT_OK);
+                finish();
             }
         });
 

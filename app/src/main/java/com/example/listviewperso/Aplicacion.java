@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Aplicacion extends Application {
     public static ArrayList<Alumno> alumnos;
-    private AdapterAlumno adaptador;
+    public static AdapterAlumno adaptador;
 
     public ArrayList<Alumno> getAlumnos(){return alumnos;}
     public AdapterAlumno getAdaptador(){return adaptador;}

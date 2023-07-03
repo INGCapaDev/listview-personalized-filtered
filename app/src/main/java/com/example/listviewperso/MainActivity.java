@@ -22,14 +22,16 @@ public class MainActivity extends AppCompatActivity {
     private Aplicacion app;
     private Alumno alumno;
     private int posicion = -1;
+    private AdapterAlumno adaptadorAlumnos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Aplicacion app = (Aplicacion) getApplication();
         recyclerView = (RecyclerView) findViewById(R.id.recId);
-        recyclerView.setAdapter(app.getAdaptador());
-
+        adaptadorAlumnos = app.getAdaptador();
+        recyclerView.setAdapter(adaptadorAlumnos);
+        recyclerView.setHasFixedSize(true);
         fbtnAgregar = (FloatingActionButton) findViewById(R.id.agregarAlumno);
 
         layoutManager = new LinearLayoutManager(this);
@@ -47,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         app.getAdaptador().setOnClickListener(v -> {
             posicion = recyclerView.getChildAdapterPosition(v);
-            // String dato = app.getAlumnos().get(posicion).getNombre();
-            // Toast.makeText(MainActivity.this, "Se hizo click en " + dato, Toast.LENGTH_SHORT).show();
             alumno = app.getAlumnos().get(posicion);
             Intent intent = new Intent(MainActivity.this, AlumnoAltaActivity.class);
             Bundle bundle = new Bundle();
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        recyclerView.getAdapter().notifyDataSetChanged();
         posicion = -1;
     }
 
@@ -83,7 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                adaptadorAlumnos.getFilter().filter(newText);
+
+
+                return true;
             }
         });
         return super.onCreateOptionsMenu(menu);
