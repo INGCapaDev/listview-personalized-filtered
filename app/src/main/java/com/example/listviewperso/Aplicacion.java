@@ -11,7 +11,7 @@ public class Aplicacion extends Application {
     public static ArrayList<Alumno> alumnos;
     public static AdapterAlumno adaptador;
 
-    private AlumnosDb alumnosDb;
+    static AlumnosDb alumnosDb;
 
     public ArrayList<Alumno> getAlumnos(){return alumnos;}
     public AdapterAlumno getAdaptador(){return adaptador;}
@@ -21,10 +21,11 @@ public class Aplicacion extends Application {
         super.onCreate();
         alumnosDb = new AlumnosDb(getApplicationContext());
         alumnos = alumnosDb.allAlumnos();
+        alumnosDb.openDataBase();
         adaptador = new AdapterAlumno(alumnos, this);
         Log.d("", "onCreate: tamaño array list " + alumnos.size());
 
-        alumnos = Alumno.llenarAlumnos();
-        //alumnosDb.openDataBase();
+        //alumnos = Alumno.llenarAlumnos();
+
     }
 }

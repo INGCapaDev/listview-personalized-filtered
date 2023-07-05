@@ -1,6 +1,7 @@
 package com.example.listviewperso;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,21 +22,21 @@ import java.util.List;
 public class AdapterAlumno extends RecyclerView.Adapter<AdapterAlumno.ViewHolder> implements View.OnClickListener, Filterable {
 
     protected ArrayList<Alumno> listaAlumnos;
-    private ArrayList<Alumno> listaAlumnosFiltrados;
+    private ArrayList<Alumno> listaFinal;
     private View.OnClickListener listener;
-    private Context context;
+    private Application context;
     private LayoutInflater inflater;
 
-    public AdapterAlumno(ArrayList<Alumno> listaAlumnos, Context context) {
-        this.listaAlumnos = listaAlumnos;
-        this.listaAlumnosFiltrados = new ArrayList<>(listaAlumnos);
-        this.context = context;
+    public AdapterAlumno(ArrayList<Alumno> listaAlumnos, Application context) {
+        this.listaAlumnos = new ArrayList<>();
+        this.listaAlumnos.addAll(listaAlumnos);
+        this.listaFinal = listaAlumnos;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @NonNull
     @Override
-    public AdapterAlumno.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.alumno_items, null);
         view.setOnClickListener(this);
 
@@ -44,15 +45,20 @@ public class AdapterAlumno extends RecyclerView.Adapter<AdapterAlumno.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull AdapterAlumno.ViewHolder holder, int position) {
-        Alumno alumno = listaAlumnos.get(position);
+        Alumno alumno = this.listaFinal.get(position);
         holder.txtMatricula.setText(alumno.getMatricula());
         holder.txtNombre.setText(alumno.getNombre());
-        holder.idImagen.setImageResource(alumno.getImg());
+        holder.txtCarrera.setText(alumno.getCarrera());
+        //holder.idImagen.setImageResource(R.drawable.avatar);
+
+        if(alumno.getImg() == 0) holder.idImagen.setImageResource(R.drawable.avatar);
+        else holder.idImagen.setImageResource(alumno.getImg());
+
     }
 
     @Override
     public int getItemCount() {
-        return listaAlumnos.size();
+        return listaFinal.size();
     }
 
     public void setOnClickListener(View.OnClickListener listener) {
@@ -72,28 +78,34 @@ public class AdapterAlumno extends RecyclerView.Adapter<AdapterAlumno.ViewHolder
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
+                ArrayList<Alumno> listaFiltrada = new ArrayList<>();
 
                 if(constraint == null || constraint.length() == 0){
-                    filterResults.values = listaAlumnosFiltrados;
-                    filterResults.count = listaAlumnosFiltrados.size();
+                    listaFiltrada.addAll(listaAlumnos);
+                    filterResults.values = listaFiltrada;
+                    filterResults.count = listaFiltrada.size();
                 } else {
-                    String searchStr = constraint.toString().toLowerCase();
-                    ArrayList<Alumno> alumnosFilter = new ArrayList<Alumno>();
-                    for (Alumno alumno: listaAlumnosFiltrados){
-                        if (alumno.getNombre().toLowerCase().contains(searchStr) || alumno.getMatricula().toLowerCase().contains(searchStr)){
-                            alumnosFilter.add(alumno);
+                    String searchStr = constraint.toString().toLowerCase().trim();
+
+                    for (Alumno alumno: listaAlumnos){
+                        String nombre = alumno.getNombre().toLowerCase().trim();
+                        String matricula = alumno.getMatricula().toLowerCase().trim();
+
+                        if (nombre.contains(searchStr) || matricula.contains(searchStr)){
+                            listaFiltrada.add(alumno);
                         }
                     }
 
-                    filterResults.values = alumnosFilter;
-                    filterResults.count = alumnosFilter.size();
+                    filterResults.values = listaFiltrada;
+                    filterResults.count = listaFiltrada.size();
                 }
                  return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                listaAlumnos = (ArrayList<Alumno>) results.values;
+                listaFinal.clear();
+                listaFinal.addAll((ArrayList<Alumno>) results.values);
                 notifyDataSetChanged();
             }
         };

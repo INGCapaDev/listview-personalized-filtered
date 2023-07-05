@@ -13,6 +13,10 @@ public class Alumno implements Serializable {
 
 
     public Alumno() {
+        this.carrera = "";
+        this.matricula = "";
+        this.nombre = "";
+        this.img = 0;
     }
 
     public Alumno(int id, int img, String nombre, String matricula, String carrera) {

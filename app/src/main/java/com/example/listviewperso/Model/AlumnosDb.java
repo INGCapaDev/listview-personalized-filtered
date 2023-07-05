@@ -44,9 +44,10 @@ public class AlumnosDb implements Persistencia, Proyeccion {
         values.put(DefineTable.Alumnos.COLUMN_NAME_NOMBRE, alumno.getNombre());
         values.put(DefineTable.Alumnos.COLUMN_NAME_CARRERA, alumno.getCarrera());
         values.put(DefineTable.Alumnos.COLUMN_NAME_FOTO, alumno.getImg());
+
          this.openDataBase();
          long num = db.insert(DefineTable.Alumnos.TABLE_NAME,null, values);
-         this.closeDataBase();
+         // this.closeDataBase();
         Log.d("agregar", "insertAlumno: " + num);
          return num;
     }
@@ -55,6 +56,7 @@ public class AlumnosDb implements Persistencia, Proyeccion {
     public long updateAlumno(Alumno alumno) {
         ContentValues values = new ContentValues();
 
+        values.put(DefineTable.Alumnos.COLUMN_NAME_ID, alumno.getId());
         values.put(DefineTable.Alumnos.COLUMN_NAME_MATRICULA, alumno.getMatricula());
         values.put(DefineTable.Alumnos.COLUMN_NAME_NOMBRE, alumno.getNombre());
         values.put(DefineTable.Alumnos.COLUMN_NAME_CARRERA, alumno.getCarrera());
@@ -63,10 +65,10 @@ public class AlumnosDb implements Persistencia, Proyeccion {
         long num = db.update(
                 DefineTable.Alumnos.TABLE_NAME,
                 values,
-                DefineTable.Alumnos.COLUMN_NAME_ID + alumno.getId(),
+                DefineTable.Alumnos.COLUMN_NAME_ID + " = " + alumno.getId(),
                 null);
-        this.closeDataBase();
-
+        //this.closeDataBase();
+        Log.d("modificar", "uptadeAlumno" + num);
         return num;
     }
 
@@ -87,8 +89,8 @@ public class AlumnosDb implements Persistencia, Proyeccion {
         Cursor cursor = db.query(
                 DefineTable.Alumnos.TABLE_NAME,
                 DefineTable.Alumnos.REGISTRO,
-                DefineTable.Alumnos.COLUMN_NAME_ID + " = ?",
-                new String[]{matricula},
+                DefineTable.Alumnos.COLUMN_NAME_ID + "=?",
+                new String[] {matricula},
                 null, null, null
         );
         cursor.moveToFirst();
@@ -124,7 +126,7 @@ public class AlumnosDb implements Persistencia, Proyeccion {
         alumno.setMatricula(cursor.getString(1));
         alumno.setNombre(cursor.getString(2));
         alumno.setCarrera(cursor.getString(3));
-        alumno.setImg(cursor.getInt(4));
+        //alumno.setImg(cursor.getInt(4));
 
         return alumno;
     }

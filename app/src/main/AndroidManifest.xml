@@ -22,7 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AlumnoAltaActivity" android:exported="true"></activity>
+        <activity
+            android:name=".AlumnoAltaActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -20,10 +20,8 @@ public class AlumnoAltaActivity extends AppCompatActivity {
     private EditText txtNombre, txtMatricula, txtGrado;
     private ImageView imgAlumno;
     private TextView lblImagen;
-    private String carrera = "Ing. Tec. Informacion";
     private int posicion;
 
-    private AlumnosDb alumnosDb;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,15 +47,16 @@ public class AlumnoAltaActivity extends AppCompatActivity {
 
         btnGuardar.setOnClickListener(v -> {
             if (alumno == null) {
-                alumno = new Alumno();
-                alumno.setCarrera(txtGrado.getText().toString());
-                alumno.setMatricula(txtMatricula.getText().toString());
-                alumno.setNombre(txtNombre.getText().toString());
-                alumno.setImg(R.drawable.avatar);
+
 
                 if (validar()) {
-                   // Aplicacion.alumnos.add(alumno);
-                    alumnosDb.insertAlumno(alumno);
+                    alumno = new Alumno();
+                    alumno.setCarrera(txtGrado.getText().toString());
+                    alumno.setMatricula(txtMatricula.getText().toString());
+                    alumno.setNombre(txtNombre.getText().toString());
+
+                    Aplicacion.alumnosDb.insertAlumno(alumno);
+                    Aplicacion.alumnos.add(this.alumno);
                     setResult(Activity.RESULT_OK);
                     finish();
                 } else {
@@ -71,10 +70,11 @@ public class AlumnoAltaActivity extends AppCompatActivity {
                 alumno.setNombre(txtNombre.getText().toString());
                 alumno.setCarrera(txtGrado.getText().toString());
 
-                Aplicacion.alumnos.get(posicion).setMatricula(alumno.getMatricula());
-                Aplicacion.alumnos.get(posicion).setNombre(alumno.getNombre());
-                Aplicacion.alumnos.get(posicion).setCarrera(alumno.getCarrera());
-                alumnosDb.updateAlumno(alumno);
+                Aplicacion.alumnosDb.updateAlumno(alumno);
+                Aplicacion.alumnos.get(posicion).setMatricula(txtMatricula.getText().toString());
+                Aplicacion.alumnos.get(posicion).setNombre(txtNombre.getText().toString());
+                Aplicacion.alumnos.get(posicion).setCarrera(txtGrado.getText().toString());
+
 
                 Toast.makeText(getApplicationContext(), "Se modifico con exito ", Toast.LENGTH_SHORT).show();
                 setResult(Activity.RESULT_OK);
@@ -83,7 +83,6 @@ public class AlumnoAltaActivity extends AppCompatActivity {
         });
 
         btnRegresar.setOnClickListener(v -> {
-        setResult(Activity.RESULT_CANCELED);
         finish();
         });
 
