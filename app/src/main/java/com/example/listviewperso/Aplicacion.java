@@ -11,7 +11,7 @@ public class Aplicacion extends Application {
     public static ArrayList<Alumno> alumnos;
     public static AdapterAlumno adaptador;
 
-    static AlumnosDb alumnosDb;
+    public static AlumnosDb alumnosDb;
 
     public ArrayList<Alumno> getAlumnos(){return alumnos;}
     public AdapterAlumno getAdaptador(){return adaptador;}

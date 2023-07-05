@@ -47,7 +47,7 @@ public class AlumnosDb implements Persistencia, Proyeccion {
 
          this.openDataBase();
          long num = db.insert(DefineTable.Alumnos.TABLE_NAME,null, values);
-         // this.closeDataBase();
+         //this.closeDataBase();
         Log.d("agregar", "insertAlumno: " + num);
          return num;
     }
@@ -126,7 +126,7 @@ public class AlumnosDb implements Persistencia, Proyeccion {
         alumno.setMatricula(cursor.getString(1));
         alumno.setNombre(cursor.getString(2));
         alumno.setCarrera(cursor.getString(3));
-        //alumno.setImg(cursor.getInt(4));
+        alumno.setImg(cursor.getString(4));
 
         return alumno;
     }

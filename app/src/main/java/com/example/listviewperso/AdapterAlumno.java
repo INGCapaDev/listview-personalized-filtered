@@ -1,13 +1,11 @@
 package com.example.listviewperso;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -16,8 +14,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdapterAlumno extends RecyclerView.Adapter<AdapterAlumno.ViewHolder> implements View.OnClickListener, Filterable {
 
@@ -43,16 +42,25 @@ public class AdapterAlumno extends RecyclerView.Adapter<AdapterAlumno.ViewHolder
         return new ViewHolder(view);
     }
 
+    private boolean isUriValid(String uriString) {
+        return uriString != null && !uriString.isEmpty();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull AdapterAlumno.ViewHolder holder, int position) {
         Alumno alumno = this.listaFinal.get(position);
         holder.txtMatricula.setText(alumno.getMatricula());
         holder.txtNombre.setText(alumno.getNombre());
         holder.txtCarrera.setText(alumno.getCarrera());
-        //holder.idImagen.setImageResource(R.drawable.avatar);
-
-        if(alumno.getImg() == 0) holder.idImagen.setImageResource(R.drawable.avatar);
-        else holder.idImagen.setImageResource(alumno.getImg());
+        if (isUriValid(alumno.getImg())) {
+            Context context = holder.itemView.getContext();
+            Glide.with(context)
+                    .load(Uri.parse(alumno.getImg()))
+                    .placeholder(R.drawable.avatar)
+                    .into(holder.idImagen);
+        } else {
+            holder.idImagen.setImageResource(R.drawable.avatar);
+        }
 
     }
 
