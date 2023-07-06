@@ -1,5 +1,6 @@
 package com.example.listviewperso;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,16 +9,18 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private FloatingActionButton fbtnAgregar;
+    private FloatingActionButton fbtnAgregar, fbtnSalir;
     private Aplicacion app;
     private Alumno alumno;
     private int posicion;
@@ -35,6 +38,22 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         fbtnAgregar = findViewById(R.id.agregarAlumno);
+        fbtnSalir = findViewById(R.id.salirApp);
+
+        fbtnSalir.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Confirmar salida");
+            builder.setMessage("¿Estás seguro de que deseas salir?");
+            builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            builder.setNegativeButton("No", null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
 
         fbtnAgregar.setOnClickListener(v -> {
             alumno = null;

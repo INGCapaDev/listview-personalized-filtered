@@ -1,6 +1,7 @@
 package com.example.listviewperso;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -61,6 +62,7 @@ public class AlumnoAltaActivity extends AppCompatActivity {
         return uri != null && "content".equals(uri.getScheme());
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +95,8 @@ public class AlumnoAltaActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Alumno eliminado", Toast.LENGTH_SHORT).show();
                     setResult(Activity.RESULT_OK);
                     finish();
+                    Aplicacion.adaptador.notifyDataSetChanged();
+
                 });
                 builder.setNegativeButton("No", (dialog, which) -> {
 
@@ -133,6 +137,8 @@ public class AlumnoAltaActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Se agrego con exito", Toast.LENGTH_SHORT).show();
                     setResult(Activity.RESULT_OK);
                     finish();
+                    Aplicacion.adaptador.notifyDataSetChanged();
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Faltó capturar datos", Toast.LENGTH_SHORT).show();
                     txtMatricula.requestFocus();
@@ -150,6 +156,8 @@ public class AlumnoAltaActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Se modificó con éxito", Toast.LENGTH_SHORT).show();
                 setResult(Activity.RESULT_OK);
                 finish();
+                Aplicacion.adaptador.notifyDataSetChanged();
+
             }
         });
 
