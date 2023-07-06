@@ -80,7 +80,6 @@ public class AlumnosDb implements Persistencia, Proyeccion {
                 DefineTable.Alumnos.COLUMN_NAME_ID + "=?",
                 new String[] {String.valueOf(id)}
         );
-        this.closeDataBase();
     }
 
     @Override

@@ -18,6 +18,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -79,6 +80,28 @@ public class AlumnoAltaActivity extends AppCompatActivity {
             }
         });
 
+        Button borrar = findViewById(R.id.borrar);
+        borrar.setOnClickListener(v -> {
+            if (posicion >= 0) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Confirmar Eliminacion");
+                builder.setMessage("¿Estás seguro de que deseas borrar este alumno?");
+                builder.setPositiveButton("Sí", (dialog, which) -> {
+                    Aplicacion.alumnosDb.deleteAlumno(alumno.getId());
+                    Aplicacion.alumnos.remove(posicion);
+                    Aplicacion.adaptador.notifyItemRemoved(posicion);;
+                    Toast.makeText(getApplicationContext(), "Alumno eliminado", Toast.LENGTH_SHORT).show();
+                    setResult(Activity.RESULT_OK);
+                    finish();
+                });
+                builder.setNegativeButton("No", (dialog, which) -> {
+
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
         Bundle bundle = getIntent().getExtras();
         alumno = (Alumno) bundle.getSerializable("alumno");
         posicion = bundle.getInt("posicion", posicion);
@@ -107,6 +130,7 @@ public class AlumnoAltaActivity extends AppCompatActivity {
 
                     Aplicacion.alumnosDb.insertAlumno(alumno);
                     Aplicacion.alumnos.add(alumno);
+                    Toast.makeText(getApplicationContext(), "Se agrego con exito", Toast.LENGTH_SHORT).show();
                     setResult(Activity.RESULT_OK);
                     finish();
                 } else {

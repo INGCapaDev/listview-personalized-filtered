@@ -42,13 +42,8 @@
             android:layout_gravity="center"
             android:textSize="20sp"
             android:hint="Grado, Licenciatura, Ing."
+            android:layout_marginBottom="10dp"
             />
-        <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-            android:id="@+id/lblFoto"
-            android:layout_gravity="center"
-            android:text="URL Foto"/>
 
         <TableLayout
             android:layout_width="match_parent"
@@ -61,27 +56,37 @@
                     android:text="Guardar"
                     android:id="@+id/btnSalir"
                     android:layout_span="2"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     />
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Regresar"
-                    android:id="@+id/btnRegresar"
+                    android:text="Borrar"
+                    android:id="@+id/borrar"
                     android:layout_span="2"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     />
+
             </TableRow>
             <TableRow>
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Seleccionar Imagen"
                     android:id="@+id/btnSeleccionarImagen"
                     android:layout_span="4"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     />
             </TableRow>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Regresar"
+                android:id="@+id/btnRegresar"
+                android:layout_span="4"
+                android:layout_margin="5dp"
+                />
         </TableLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
